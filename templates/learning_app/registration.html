@@ -1,0 +1,17 @@
+{% extends 'learning_app/base.html' %}
+
+{% block bodyblock %}
+  {% if registered %}
+    <h1> Thank you for signing up </h1>
+  {% else %}
+  <!-- enctype to handle the images file -->
+  <form method = "POST" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <input type = "submit" class = "btn btn-primary" value = "Register"/>
+  <form>
+
+  {% endif %}
+
+{% endblock %}

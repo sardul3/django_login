@@ -1,0 +1,25 @@
+{% extends 'learning_app/base.html' %}
+
+  {% block bodyblock %}
+    <div class = "jumbotron">
+      <h1> Log In </h1>
+        <form action="{% url 'learning_app:user_login' %}" method="post">
+          {% csrf_token %}
+          <label for="username">Username:</label>
+          <input type="text" name="username" placeholder="enter your username">
+
+          <label for="password">Password:</label>
+          <!-- The name will be used in views function -->
+          <input type="password" name="password">
+
+          <input type="submit"  value="Login">
+        </form>
+    </div>
+
+
+
+
+
+
+
+  {% endblock %}
