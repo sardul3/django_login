@@ -1,27 +1,45 @@
+{%load static%}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Merienda|Merriweather|Ropa+Sans" rel="stylesheet">
     <title></title>
   </head>
   <body>
-    <nav class = "navbar navbar-default navbar-static-top">
-      <div class = "container">
+    <div class = "container">
+    <nav class = "navbar navbarght bg-light">
           <ul class = "nav navbar-nav">
-            <li> <a  class = "navbar-brand" href = "{% url 'index' %}"> Home </a> </li>
-            <li> <a class = "navbar-link" href = "{% url 'admin:index' %}">Admin </a> </li>
-            <li> <a class = "navbar-link" href = "{% url 'learning_app:register' %}"> Register </a> </li>
+            <li class = "nav-item"> <a  class = "nav-link" href = "{% url 'index' %}"> Home </a> </li>
+            <li class = "nav-item"> <a class = "nav-link" href = "{% url 'admin:index' %}">Admin </a> </li>
+            <li class = "nav-item"> <a class = "nav-link nav-right" href = "{% url 'learning_app:list_users' %}"> Connect </a> </li>
 
             {% if user.is_authenticated %}
-              <li> <a class = "navbar-link" href = "{% url 'user_logout' %}">Logout</a> </li>
+              <li class = "nav-item"> <a class = "nav-link" href = "{% url 'user_logout' %}">Logout</a> </li>
+              <li class = "navbar-item"> <a class = "nav-link" href= "{%url 'feed'%}"> Logged in as  {{user.username}}</a></li>
             {% else %}
-            <li> <a class = "navbar-link" href = "{% url 'learning_app:user_login' %}"> Login </a> </li>
+            <li class = "nav-item"> <a class = "nav-link nav-right" href = "{% url 'learning_app:register' %}"> Register </a> </li>
+
+            <li class = "nav-item"> <a class = "nav-link" href = "{% url 'learning_app:user_login' %}"> Login </a> </li>
             {% endif %}
 
           </ul>
-      </div>
     </nav>
+    </div>
+
+
+
+
+
+
+
+
+
+
 
 <div class = "container">
       {% block bodyblock %}

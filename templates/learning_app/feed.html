@@ -1,1 +1,91 @@
-<h1> Private </h1>
+{% extends 'learning_app/base.html'%}
+{% load static %}
+{% block bodyblock %}
+<link rel="stylesheet" href="{% static 'css/feed.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css'%}">
+
+
+
+
+  {% if messages %}
+      <div class="messages alert alert-success " role = "alert">
+          {% for message in messages %}
+          <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+
+          {% endfor %}
+      </div>
+  {% endif %}
+
+
+
+    <div class = "container jumbotron" id = "main_content">
+      <div class = "row">
+        <div class = "col col-lg-4 col-md-12 col-sm-12">
+          <div>
+            <img src = "{{user.profile_picture.url}}" id = "profile_picture">
+          </div>
+        </div>
+
+        <div class = "col col-lg-8 col-md-12 col-sm-12">
+          <div>
+              <h1> {{user.user.username|capfirst}}</h1>
+          </div>
+
+          <div>
+              <h2> {{user.user.email}}</h2>
+          </div>
+
+          <div>
+              <h3>Been a Member for {{user.user.date_joined|timesince}}</h3>
+          </div>
+
+          <div>
+            <span style="font-size: 4em;color: Dodgerblue;">
+                <a href = "{{user.portfolio}}" target = "_blank">
+                <i class="fab fa-linkedin"></i></a>
+            </span>
+          </div>
+
+
+
+        </div>
+    </div>
+  </div>
+
+<div class = "row">
+  <div class = "col col-lg-5">
+    <div class = "container jumbotron" id = "main_content">
+      <h1> Add a note </h1>
+      <form action = "{% url 'learning_app:add' %}" method = "POST">
+        {% csrf_token %}
+        <div class = "form-row">
+            <input class = "form-control col-lg-2" type = "text" name = 'note_text'>
+            <button type = "submit" class = "btn btn-primary btn-block" style="margin-top:100px;"> Add </button>
+          </div>
+      </form>
+    </div>
+    <br/>
+    <div class = "container jumbotron" id = "main_content">
+
+      <h1> Notes </h1>
+      <ul class="list-group">
+        {% for n in note %}
+        <li class="list-group-item">{{n}}</li>
+        {%endfor%}
+      </ul>
+    </div>
+    </div>
+    <div class = "col col-lg-7">
+      <div class = "container jumbotron" id = "main_content">
+      <h1> Share memory </h1>
+    <form method = "post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+</div>
+</div>
+</div>
+
+
+{%endblock%}

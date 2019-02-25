@@ -1,16 +1,21 @@
 {% extends 'learning_app/base.html' %}
+{%load static%}
 
 {% block bodyblock %}
   {% if registered %}
     <h1> Thank you for signing up </h1>
   {% else %}
   <!-- enctype to handle the images file -->
+  <div class = "container login card border-primary bg-light mb-3 form-row" style="width: 45rem;" id = "main_content">
+
   <form method = "POST" enctype="multipart/form-data" >
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
-    <input type = "submit" class = "btn btn-primary" value = "Register"/>
+    <input type = "submit" class = "btn btn-primary btn-lg" value = "Register"/>
   <form>
+
+    </div>
 
   {% endif %}
 

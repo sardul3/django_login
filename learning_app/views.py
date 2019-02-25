@@ -1,15 +1,19 @@
 from django.shortcuts import render
-from learning_app.forms import UserForm, UserProfileForm
+from learning_app.forms import UserForm, UserProfileForm, MemoryForm
 
 # necessary files for auth
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-
+from .models import Note, Memory, UserProfileModel
+import datetime
+from django.contrib import messages
 # Create your views here.
 def index(request):
-    return render(request, 'learning_app/index.html')
+    memories = Memory.objects.all()
+    context = {'memories':memories}
+    return render(request, 'learning_app/index.html', context)
 
 # sign up logic
 def register(request):
@@ -39,6 +43,8 @@ def register(request):
             profile.save()
 
             registered = True
+            messages.success(request, 'You can now log in')
+            return render(request, 'learning_app/login.html')
         # if the form had errors
         else:
             print(user_form.errors, profile_form.errors)
@@ -69,13 +75,15 @@ def user_login(request):
             if user.is_active:
                 # user is logged in and redirected to home page
                 login(request, user)
-                return HttpResponseRedirect(reverse('index'))
+                messages.success(request, 'You are now logged in')
+                return HttpResponseRedirect(reverse('feed'))
             else:
                 return HttpResponse('Account is not active')
         # if there is no valid user
         else:
-            print('someone tried to login with invalid credentials')
-            return HttpResponse('Invalid username or password')
+            messages.error(request, 'Invalid username / password')
+            return HttpResponseRedirect(reverse('learning_app:user_login'))
+
     # for someone trying to log in
     else:
         return render(request, 'learning_app/login.html', {})
@@ -88,4 +96,38 @@ def user_logout(request):
 
 @login_required
 def feed(request):
-    return render(request, 'learning_app/feed.html', {})
+    form = MemoryForm(request.POST, request.FILES)
+
+    if request.method == "POST":
+
+        if form.is_valid():
+            form.save()
+        else:
+            form = MemoryForm()
+
+    note = Note.objects.filter(author=request.user.username)
+    memories = Memory.objects.filter(author=request.user.username)
+    print(request.user.username)
+    profile_user = UserProfileModel.objects.get(user=request.user)
+    profile_photo = profile_user.profile_picture
+    context = {'user': request.user, 'note': note, 'form': form, 'memories':memories, 'profile_photo': profile_photo, 'user': profile_user}
+
+    return render(request, 'learning_app/feed.html', context)
+
+def add(request):
+    note_text = request.POST.get('note_text')
+    n = Note(text=note_text, author = request.user.username)
+    n.save()
+    context = {'note': n}
+    return HttpResponseRedirect(reverse('feed'), context)
+
+def list_users(request):
+    users = UserProfileModel.objects.all()
+    context = {'users': users}
+    return render(request, 'learning_app/users.html', context)
+
+def view_profile(request):
+    profile_user = UserProfileModel.objects.get(user=request.user)
+    memories = Memory.objects.filter()
+    context = {'user': profile_user}
+    return render(request, 'learning_app/profile.html', context)

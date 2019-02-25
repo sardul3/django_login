@@ -1,0 +1,29 @@
+{% extends 'learning_app/base.html' %}
+{%load static%}
+
+{% block bodyblock %}
+<div class = "container" id = "main_content">
+  <h1> Users </h1>
+  {% if users %}
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Portfolio</th>
+            <th scope="col">Member since</th>
+            </tr>
+        </thead>
+
+    <tbody>
+        {% for user in users %}
+          <tr>
+            <td>{{user.user.username}} </td>
+            <td><a href = "{{user.portfolio}} target = '_blank'"> connect here </a></td>
+            <td>{{user.user.date_joined | timesince}}</td>
+          </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+  {% endif %}
+{% endblock %}

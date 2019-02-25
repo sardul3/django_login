@@ -1,0 +1,43 @@
+{% extends 'learning_app/base.html' %}
+{%load static%}
+
+{% block bodyblock %}
+<link rel="stylesheet" href="{% static 'css/profile.css'%}">
+  <div class = "container" id = "main_content">
+    <div class = "row">
+      <div class = "col col-lg-4 col-md-12 col-sm-12">
+        <div>
+          <img src = "{{user.profile_picture.url}}" id = "profile_picture">
+        </div>
+      </div>
+
+      <div class = "col col-lg-8 col-md-12 col-sm-12">
+        <div>
+            <h1> {{user.user.username|capfirst}}</h1>
+        </div>
+
+        <div>
+            <h2> {{user.user.email}}</h2>
+        </div>
+
+        <div>
+            <h3>Been a Member for {{user.user.date_joined|timesince}}</h3>
+        </div>
+
+        <div>
+          <span style="font-size: 4em;color: Dodgerblue;">
+              <a href = "{{user.portfolio}}" target = "_blank">
+              <i class="fab fa-linkedin"></i></a>
+          </span>
+        </div>
+
+
+
+      </div>
+  </div>
+</div>
+
+<div class = "container" id = "main_content" style = "margin-top:2px;">
+  <h1> Memories </h1>
+</div>
+{% endblock %}
