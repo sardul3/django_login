@@ -126,8 +126,8 @@ def list_users(request):
     context = {'users': users}
     return render(request, 'learning_app/users.html', context)
 
-def view_profile(request):
-    profile_user = UserProfileModel.objects.get(user=request.user)
+def view_profile(request, user_id):
+    profile_user = UserProfileModel.objects.get(pk=user_id)
     memories = Memory.objects.filter()
     context = {'user': profile_user}
     return render(request, 'learning_app/profile.html', context)

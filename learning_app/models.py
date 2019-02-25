@@ -7,6 +7,7 @@ class UserProfileModel(models.Model):
 
 
     last_seen = models.DateTimeField(blank=True, default = datetime.now)
+    
 
     portfolio = models.URLField(blank=True)
     profile_picture = models.ImageField(upload_to = 'profile_pics', blank = True)

@@ -11,15 +11,23 @@
       <div class = "col col-lg-12">
         <h1> Memories </h1>
       {% for m in memories %}
-                    <div class = "card border-warning col-lg-2 text-white bg-info" style="margin: 10px;">
-                      <img src="{{m.photo.url}}" class = "card-img-top img-thumbnail" style="margin-top:5px;" >
-                      <div class = "card-body">
-                        <p class = "card-text text-center ">  {{ m.desc }} </p>
-                      </div>
+      <div class = "jumbotron" id = "main_content">
 
+        <div class = "row">
+                    <div class = "card border-warning text-white bg-info "  style="margin: 10px;">
+                      <div class = "col-md-4">
+                          <img src="{{m.photo.url}}" class = "card-img-top img-thumbnail" style="margin-top:5px;" >
+                      </div>
+                      <div class = "col-md-4">
+                        <div class = "card-body">
+                          <p class = "card-text text-center ">  {{ m.desc }} </p>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
                     </div>
         {% endfor %}
-      </div
+      </div>
     </div>
   </div>
 {%endif%}
