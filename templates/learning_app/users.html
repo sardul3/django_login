@@ -11,16 +11,25 @@
             <th scope="col">Username</th>
             <th scope="col">Portfolio</th>
             <th scope="col">Member since</th>
+            <th scope = "col">Contact</th>
             </tr>
         </thead>
 
     <tbody>
         {% for user in users %}
           <tr>
-              <td>{{user.user.username}} </td>
-
+            <td>{{user.user.username}}</td>
             <td><a href = "{{user.portfolio}} target = '_blank'"> connect here </a></td>
             <td>{{user.user.date_joined | timesince}}</td>
+            <td>
+              <form method = "POST" action =  "{%url 'learning_app:view_profile' user.id%}">
+                {%csrf_token%}
+                <span style="font-size: 3em;color: Dodgerblue;">
+                  <button>  <i class="far fa-hand-point-right"></i>
+                  </button>
+                </span>
+              </form>
+            </td>
           </tr>
         {% endfor %}
     </tbody>

@@ -38,6 +38,33 @@
 </div>
 
 <div class = "container" id = "main_content" style = "margin-top:2px;">
-  <h1> Memories </h1>
+  <h1> Contact {{user.user.username}} </h1>
+
+  <form method = "POST" action = "{% url 'learning_app:mail'%}">
+    {%csrf_token%}
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <input type="text" class="form-control"  placeholder="name" name = "name">
+      </div>
+      <div class="form-group col-md-4">
+        <input type="email" class="form-control"  placeholder="email address"
+        value = "{{user.user.email}}" name = "email_to">
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <input type="email" class="form-control"  placeholder="email address"
+       name = "email_from">
+    </div>
+
+
+    <div class="form-group">
+      <div class="form-group col-md-8">
+      <textarea class="form-control" name = "msg" placeholder="type in your feedback"></textarea>
+    </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary col-md-4">Send</button>
+  </form>
+  </div>
 </div>
 {% endblock %}

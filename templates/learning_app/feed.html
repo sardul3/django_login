@@ -8,8 +8,8 @@
 
 
   {% if messages %}
-      <div class="messages alert alert-success " role = "alert">
           {% for message in messages %}
+          <div class="messages alert alert-{{message.tags}}" role = "alert">
           <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
 
           {% endfor %}
@@ -56,19 +56,33 @@
       <h1> Add a note </h1>
       <form action = "{% url 'learning_app:add' %}" method = "POST">
         {% csrf_token %}
-        <div class = "form-row">
-            <input class = "form-control col-lg-2" type = "text" name = 'note_text'>
-            <button type = "submit" class = "btn btn-primary btn-block" style="margin-top:100px;"> Add </button>
-          </div>
+        <div class = "form-row" style="padding:40px;">
+            <input class = "form-control col-lg-2" type = "text" name = 'note_text' style="margin-bottom:4px;">
+            <button type = "submit" class = "btn btn-primary btn-block" > Add </button>
+        </div>
       </form>
     </div>
+
     <br/>
     <div class = "container jumbotron" id = "main_content">
 
       <h1> Notes </h1>
       <ul class="list-group">
         {% for n in note %}
-        <li class="list-group-item">{{n}}</li>
+        <li class="list-group-item"><h4>{{n}}</h4>
+          <form method = "POST" action = "{%url 'learning_app:delete_note' n.id%}">
+            {%csrf_token%}
+              <div class = "text-right">
+                <span style="font-size: 2em;color: Tomato;">
+                  <button>
+                    <i class="fas fa-times"></i>
+                  </button>
+                </span>
+              </div>
+          </form>
+
+        </li>
+
         {%endfor%}
       </ul>
     </div>

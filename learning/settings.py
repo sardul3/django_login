@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'learning_app',
 ]
 
@@ -139,6 +140,12 @@ LOGIN_URL = '/learning_app/user_login'
 
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
-    
-
+    messages.ERROR: 'danger',
 }
+DEFAULT_FROM_EMAIL = 'poudelsagar530@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER = 'poudelsagar530@gmail.com'
+EMAIL_HOST_PASSWORD = '@Sandhya123'

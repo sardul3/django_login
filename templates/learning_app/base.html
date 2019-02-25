@@ -1,5 +1,5 @@
 {%load static%}
-
+{%load humanize%}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/landing.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Lato|Merienda|Merriweather|Ropa+Sans" rel="stylesheet">
-    <title></title>
+ <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>    <title></title>
   </head>
   <body>
     <div class = "container">
@@ -23,7 +23,6 @@
               <li class = "navbar-item"> <a class = "nav-link" href= "{%url 'feed'%}"> Logged in as  {{user.username}}</a></li>
             {% else %}
             <li class = "nav-item"> <a class = "nav-link nav-right" href = "{% url 'learning_app:register' %}"> Register </a> </li>
-
             <li class = "nav-item"> <a class = "nav-link" href = "{% url 'learning_app:user_login' %}"> Login </a> </li>
             {% endif %}
 
@@ -42,9 +41,17 @@
 
 
 <div class = "container">
+      {%block messageblock%}
+      {%endblock%}
+
       {% block bodyblock %}
       {% endblock %}
 </div>
 
   </body>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    setTimeout(function(){ $('.alert').fadeOut() }, 2000);
+  });
+  </script>
 </html>

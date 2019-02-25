@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from learning_app.forms import UserForm, UserProfileForm, MemoryForm
 
 # necessary files for auth
@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Note, Memory, UserProfileModel
 import datetime
 from django.contrib import messages
+from django.core.mail import send_mail
 # Create your views here.
 def index(request):
     memories = Memory.objects.all()
@@ -43,7 +44,7 @@ def register(request):
             profile.save()
 
             registered = True
-            messages.success(request, 'You can now log in')
+            messages.success(request, 'Successfuly registered')
             return render(request, 'learning_app/login.html')
         # if the form had errors
         else:
@@ -92,6 +93,7 @@ def user_login(request):
 def user_logout(request):
     # logs out the user
     logout(request)
+    messages.error(request, 'successfuly logged out')
     return HttpResponseRedirect(reverse('index'))
 
 @login_required
@@ -119,7 +121,15 @@ def add(request):
     n = Note(text=note_text, author = request.user.username)
     n.save()
     context = {'note': n}
+    messages.success(request, 'Note added successfuly')
     return HttpResponseRedirect(reverse('feed'), context)
+
+def delete_note(request, note_id):
+    n = Note.objects.get(pk=note_id)
+    n.delete()
+    messages.warning(request, 'You deleted a note')
+    return HttpResponseRedirect(reverse('feed'))
+
 
 def list_users(request):
     users = UserProfileModel.objects.all()
@@ -128,6 +138,22 @@ def list_users(request):
 
 def view_profile(request, user_id):
     profile_user = UserProfileModel.objects.get(pk=user_id)
-    memories = Memory.objects.filter()
     context = {'user': profile_user}
     return render(request, 'learning_app/profile.html', context)
+
+def like(request, mem_id):
+    memory = Memory.objects.get(pk= mem_id)
+    memory.likes +=1
+    memory.save()
+    messages.success(request, 'You liked a memory')
+    return HttpResponseRedirect(reverse('index'))
+
+def mail(request):
+    name = request.POST.get('name')
+    email_to = request.POST.get('email_to')
+    email_from = request.POST.get('email_from')
+    msg = request.POST.get('msg')
+    print(name, email_to,email_from )
+
+    send_mail('Feedback from '+name,msg,email_from,[email_to])
+    return HttpResponseRedirect(reverse('index'))

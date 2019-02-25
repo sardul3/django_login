@@ -1,15 +1,25 @@
 {% extends 'learning_app/base.html' %}
 {%load static%}
 {% block bodyblock %}
+{%load humanize%}
+
   <div class = "jumbotron" id = "main_content">
     <h1> Welcome to the share-care </h1>
   </div>
+
+  {% if messages %}
+          {% for message in messages %}
+          <div class="messages alert alert-{{message.tags}}" role = "alert">
+          <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+
+          {% endfor %}
+      </div>
+  {% endif %}
 
 {%if user.is_authenticated%}
   <div class = "jumbotron" id = "main_content">
     <div class = "row">
       <div class = "col col-lg-12">
-        <h1> Memories </h1>
       {% for m in memories %}
       <div class = "jumbotron" id = "main_content">
 
@@ -18,13 +28,29 @@
                       <div class = "col-md-4">
                           <img src="{{m.photo.url}}" class = "card-img-top img-thumbnail" style="margin-top:5px;" >
                       </div>
-                      <div class = "col-md-4">
+                      <div class = "col-md-8">
                         <div class = "card-body">
-                          <p class = "card-text text-center ">  {{ m.desc }} </p>
+                          <h2 class = "card-text  ">  {{ m.desc|capfirst }} </h2>
+                          <h3 class = "card-text "><em>  {{ m.created_at|naturaltime }}</em> </h3>
+
+                          <h3 class = "card-text">  <mark>{{ m.likes}}</mark> Kisses </h3>
+                          <form method = "POST" action = "{%url 'learning_app:like' m.id%}">
+                            {%csrf_token%}
+                            <span style="font-size: 4em;color: Tomato;">
+                              <button>
+                                <i class="far fa-kiss-wink-heart"></i>
+                              </button>
+                            </span>
+                          </form>
+
+
                         </div>
                       </div>
+
+
+
                     </div>
-                    </div>
+          </div>
                     </div>
         {% endfor %}
       </div>

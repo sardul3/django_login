@@ -5,7 +5,7 @@
     <div class = "container login card border-primary bg-light mb-3 form-row" style="width: 45rem;" id = "main_content">
 
       {% if messages %}
-          <div class="messages alert " role = "alert">
+          <div class="messages alert alert-danger" role = "alert">
               {% for message in messages %}
               <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
 
