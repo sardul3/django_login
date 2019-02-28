@@ -1,0 +1,8 @@
+h1{color: green;}
+
+.pro_pic{
+  border-radius: 120px;
+  height: 70px;
+  width: 70px;
+  border: 1px solid green;
+}
