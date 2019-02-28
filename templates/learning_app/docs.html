@@ -1,0 +1,52 @@
+{% extends 'learning_app/base.html' %}
+{%load static%}
+{% block bodyblock %}
+{%load humanize%}
+
+
+
+    {% if messages %}
+        <div class="messages alert alert-danger" role = "alert">
+            {% for message in messages %}
+            <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+
+            {% endfor %}
+        </div>
+  {% endif %}
+  <div class = "jumbotron" id = "main_content">
+    <h1> Welcome to the share-care </h1>
+  </div>
+
+<div class = "row">
+  <div class = "col col-lg-7">
+  <div class = "jumbotron" id = "main_content">
+    <h1> What is this? </h1>
+
+    <h3 style = "font-family: 'Ropa Sans'">
+      This is a website where users can come in and share their pictures<hr>
+      Also, you can add personal notes<hr>
+      The photos also known as memories are only visible once you log in<hr>
+      The connect page consists of all the users and the link to their profile<hr>
+      Once, inside someone's profile, you can send them an email<hr>
+      From the forum page, users can exchange messages and helpful informations
+    </h3>
+  </div>
+  </div>
+
+  <div class = "col col-lg-5">
+  <div class = "jumbotron" id = "main_content">
+    <h1> Built using </h1>
+    <h3 style = "font-family: 'Ropa Sans'">
+
+      Django <hr>
+      Messages Framework <hr>
+      Bootstrap <hr>
+      SQLite DB <hr>
+      HTML + CSS + JS <hr>
+      Contrib Framework <hr>
+    </h3>
+
+  </div>
+  </div>
+  </div>
+  {% endblock %}

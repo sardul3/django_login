@@ -2,7 +2,8 @@
 {%load static%}
 
 {% block bodyblock %}
-<div class = "container" id = "main_content">
+<div class = "container" id = "main_content" style = "overflow-y: scroll;
+max-height: 75vh;">
   <h1> Users </h1>
   {% if users %}
     <table class="table">
@@ -18,14 +19,14 @@
     <tbody>
         {% for user in users %}
           <tr>
-            <td>{{user.user.username}}</td>
-            <td><a href = "{{user.portfolio}} target = '_blank'"> connect here </a></td>
-            <td>{{user.user.date_joined | timesince}}</td>
+            <td><h3>{{user.user.username}}</h3></td>
+            <td><a href = "{{user.portfolio}}" target = "_blank"><h3> connect here</h3> </a></td>
+            <td><h3>{{user.user.date_joined | timesince}}</h3></td>
             <td>
               <form method = "POST" action =  "{%url 'learning_app:view_profile' user.id%}">
                 {%csrf_token%}
                 <span style="font-size: 3em;color: Dodgerblue;">
-                  <button>  <i class="far fa-hand-point-right"></i>
+                  <button style = "background-color: #ffffff; border: none;">  <i class="far fa-hand-point-right"></i>
                   </button>
                 </span>
               </form>

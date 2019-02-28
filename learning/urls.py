@@ -22,7 +22,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^$', views.index, name = "index"),
+    url(r'^index/$', views.index, name = "index"),
+    url(r'^$', views.info, name = "info"),
+
     url(r'^learning_app/', include('learning_app.urls')),
     url(r'^logout/$', views.user_logout, name = 'user_logout'),
     url(r'^feed/$', views.feed, name = 'feed')

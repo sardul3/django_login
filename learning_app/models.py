@@ -7,7 +7,7 @@ class UserProfileModel(models.Model):
 
 
     last_seen = models.DateTimeField(blank=True, default = datetime.now)
-    
+
 
     portfolio = models.URLField(blank=True)
     profile_picture = models.ImageField(upload_to = 'profile_pics', blank = True)
@@ -29,3 +29,9 @@ class Memory(models.Model):
 
     created_at = models.DateTimeField(blank=True, default = datetime.now)
     likes = models.PositiveIntegerField(default=0)
+
+class Forum(models.Model):
+    user = models.CharField(max_length=100)
+    text = models.CharField(max_length=250)
+    sent_on = models.DateTimeField(blank=True, default = datetime.now)
+    

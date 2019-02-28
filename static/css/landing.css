@@ -4,6 +4,10 @@ body{
   background: rgb(131,58,180);
   background: linear-gradient(318deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
 }
+h1{
+  font-size: 45px !important;
+}
+
 
 #main_content{
   border: 0.7px solid #BF360C;
@@ -16,7 +20,7 @@ body{
   -moz-box-shadow: -1px 3px 17px -1px rgba(22,22,2,0.58);
 }
 
-.login_opts, h1{
+.login_opts, h1, h2{
   margin: 10px;
   font-family: "Merienda";
 }
@@ -31,14 +35,14 @@ body{
   padding: 15px 10px;
   margin-bottom: 10px;
   width: 100%;
-  border: 1px solid #ddd;
+  border: 1.5px solid #ddd;
   transition: border-width 0.2s ease;
   border-radius: 2px;
   color: #ccc;
 }
 .login input + i.fa {
   color: #fff;
-  font-size: 1em;
+  font-size: 1.5em;
   position: absolute;
   margin-top: -47px;
   opacity: 0;

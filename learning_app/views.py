@@ -6,12 +6,16 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from .models import Note, Memory, UserProfileModel
+from .models import Note, Memory, UserProfileModel, Forum
 import datetime
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.contrib.messages import get_messages
 # Create your views here.
 def index(request):
+
+
+
     memories = Memory.objects.all()
     context = {'memories':memories}
     return render(request, 'learning_app/index.html', context)
@@ -87,14 +91,14 @@ def user_login(request):
 
     # for someone trying to log in
     else:
-        return render(request, 'learning_app/login.html', {})
+        return HttpResponseRedirect(reverse('learning_app:feed'))
 
 @login_required
 def user_logout(request):
     # logs out the user
     logout(request)
     messages.error(request, 'successfuly logged out')
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('info'))
 
 @login_required
 def feed(request):
@@ -157,3 +161,19 @@ def mail(request):
 
     send_mail('Feedback from '+name,msg,email_from,[email_to])
     return HttpResponseRedirect(reverse('index'))
+
+def forum(request):
+    if request.method == 'POST':
+        user = request.POST.get('sent_by')
+        text = request.POST.get('msgText')
+
+        forum = Forum(user=user, text=text)
+        forum.save()
+
+    forum_posts = Forum.objects.all()
+    context = {'forum_posts':forum_posts}
+
+    return render(request, 'learning_app/forum.html', context)
+
+def info(request):
+    return render(request, 'learning_app/docs.html')

@@ -1,0 +1,54 @@
+{% extends 'learning_app/base.html'%}
+{%load static%}
+{%load humanize%}
+
+{%block bodyblock%}
+<link rel="stylesheet" href="{%static 'css/forum.css'%}">
+<script type="text/javascript" src = "{%static 'js/forum.js'%}">
+</script>
+<div class = "container">
+<div class = "displayArea">
+
+      {%for posts in forum_posts%}
+      <div class = "message">
+        <div class = "msg">
+            {{posts.text}}
+        </div>
+        <div class = "username">
+          by {{posts.user}}
+        </div>
+        <div class = "time">
+          {{posts.sent_on|naturaltime}}
+        </div>
+          </div>
+      {%endfor%}
+</div>
+
+{%if user.is_authenticated%}
+<div class = "inputArea container ">
+  <div class = "row type">
+  <form action="{%url 'learning_app:forum'%}" method="post">
+    {%csrf_token%}
+        <div class = "col col-sm-3 col-md-7 col-lg-3">
+          <div class="form-group input-group-lg">
+            <input class = "form-control form-control-lg"
+                   id = "user" name="sent_by" placeholder="user name"
+                   value = "{{user.username}}"> </input>
+          </div>
+        </div>
+        <div class = "col col-sm-7 col-md-7 col-lg-7">
+          <div class="form-group input-group-lg">
+            <input class = "form-control form-control-lg"  id = "msgText" name="msgText" placeholder="message"> </input>
+          </div>
+      </div>
+      <div class = "col col-sm-2 col-md-2 col-lg-2">
+        <button type = "submit" class = "btn btn-primary btn-lg"  id = "msgSend">  Send </button>
+      </div>
+      </form>
+</div>
+</div>
+{%endif%}
+</div>
+
+
+{%endblock%}

@@ -14,6 +14,8 @@ urlpatterns = [
     url('profile/(?P<user_id>\d+)', views.view_profile, name='view_profile'),
     url('profile/mail', views.mail, name='mail'),
     url(r'feed/delete/(?P<note_id>\d+)', views.delete_note, name = 'delete_note'),
+    url(r'^forum/$', views.forum, name = 'forum'),
+    url(r'^info/$', views.info, name = 'info'),
 
 
 

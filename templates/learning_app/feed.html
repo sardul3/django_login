@@ -4,9 +4,6 @@
 <link rel="stylesheet" href="{% static 'css/feed.css' %}">
 <link rel="stylesheet" href="{% static 'css/profile.css'%}">
 
-
-
-
   {% if messages %}
           {% for message in messages %}
           <div class="messages alert alert-{{message.tags}}" role = "alert">
@@ -74,7 +71,7 @@
             {%csrf_token%}
               <div class = "text-right">
                 <span style="font-size: 2em;color: Tomato;">
-                  <button>
+                  <button style="border:none;background-color:#ffffff;">
                     <i class="fas fa-times"></i>
                   </button>
                 </span>
