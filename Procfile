@@ -1,1 +1,1 @@
-web: gunicorn learning.wsgi --log-file -
+gunicorn --log-file=- onbytes.wsgi:application

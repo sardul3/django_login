@@ -26,9 +26,9 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'alr4n5=s^ky!#$n_g+o(vlbzz%+a1zn6byr-!1*cyci-ei+!f^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['https://thecrew.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -52,7 +52,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise'
 ]
 
 ROOT_URLCONF = 'learning.urls'
@@ -73,7 +72,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'learning.wsgi.application'
 
 
 # Database
@@ -133,8 +131,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR,]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'

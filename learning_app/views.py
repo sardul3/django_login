@@ -91,7 +91,7 @@ def user_login(request):
 
     # for someone trying to log in
     else:
-        return HttpResponseRedirect(reverse('learning_app:feed'))
+        return render(request,'learning_app/login.html')
 
 @login_required
 def user_logout(request):
